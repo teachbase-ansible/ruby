@@ -1,0 +1,3 @@
+- name: Ruby | Install bundler
+  sudo: yes
+  gem: name=bundler state=latest

@@ -17,12 +17,3 @@
     - make
     - sudo make install
   when: _installed.rc == 1
-    
-- name: Ruby | Install bundler
-  command: sudo gem install {{ item.name }}
-  with_items:
-   - { name: 'bundler'}
-
-- name: Ruby | Update permissions  
-  command: "sudo chown -R {{ deploy_user }} /usr/local/lib/ruby"
-  when: deploy_user is defined
