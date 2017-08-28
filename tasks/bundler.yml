@@ -1,3 +1,6 @@
-- name: Ruby | Install bundler
+- name: Bundler | Install bundler
   sudo: yes
-  gem: name=bundler state=present user_install=no
+  gem:
+    name: bundler
+    state: present
+    user_install: no

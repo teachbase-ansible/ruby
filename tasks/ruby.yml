@@ -3,17 +3,21 @@
   register: _installed
   ignore_errors: True
 
-- name: Ruby | Download
-  get_url: "url={{ ruby_url }} dest={{ ruby_tmp_path }}.tar"
-  when: _installed.rc == 1 
+- block:
+  - name: Ruby | Download
+    get_url:
+      url: "{{ ruby_url }}"
+      dest: "{{ ruby_tmp_path }}.tar"
 
-- name: Ruby | Extract
-  command: tar -zxf "{{ ruby_tmp_path }}.tar"
-  when: _installed.rc == 1
-- name: Make, configure, and install ruby
-  command: "{{ item }} chdir={{ ruby_name }}"
-  with_items:
-    - ./configure
-    - make
-    - sudo make install
+  - name: Ruby | Extract
+    command: tar -zxf "{{ ruby_tmp_path }}.tar"
+
+  - name: Make, configure, and install ruby
+    command: "{{ item }}"
+    args:
+      chdir: "{{ ruby_name }}"
+    with_items:
+      - ./configure
+      - make
+      - sudo make install
   when: _installed.rc == 1
