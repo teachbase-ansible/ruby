@@ -22,6 +22,11 @@
       - sudo make install
   when: _installed.rc == 1
 
+- name: Ruby | Ensure downloaded tarball is removed.
+  file:
+    path: "{{ ruby_tmp_path }}.tar"
+    state: absent
+
 - name: Ruby | Ensure alternatives are updated.
   alternatives:
     name: 'ruby'
