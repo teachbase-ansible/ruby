@@ -15,7 +15,7 @@
   - name: Make, configure, and install ruby
     command: "{{ item }}"
     args:
-      chdir: "{{ ruby_name }}"
+      chdir: "{{ ruby_tmp_path }}"
     with_items:
       - ./configure
       - make
