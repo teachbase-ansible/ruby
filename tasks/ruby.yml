@@ -16,6 +16,7 @@
     command: "{{ item }}"
     args:
       chdir: "{{ ruby_tmp_path }}"
+      creates: '/usr/local/bin/ruby'
     with_items:
       - ./configure
       - make
