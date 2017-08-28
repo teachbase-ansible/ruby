@@ -4,20 +4,41 @@
   ignore_errors: True
 
 - block:
-  - name: Ruby | Download
+  - name: Ruby | Ensure tarball is Downloaded.
     get_url:
       url: "{{ ruby_url }}"
       dest: "{{ ruby_tmp_path }}.tar"
 
-  - name: Ruby | Extract
-    command: tar -zxf "{{ ruby_tmp_path }}.tar"
+  - name: Ruby | Ensure sources are extracted.
+    unarchive:
+      src: "{{ ruby_tmp_path }}.tar"
+      dest: '/usr/local/src/'
+      remote_src: True
+      creates: "{{ ruby_tmp_path }}"
 
-  - name: Make, configure, and install ruby
+  - name: Ruby | Make, configure, and install ruby.
     command: "{{ item }}"
     args:
-      chdir: "{{ ruby_name }}"
+      chdir: "{{ ruby_tmp_path }}"
+      creates: '/usr/local/bin/ruby'
     with_items:
       - ./configure
       - make
       - sudo make install
   when: _installed.rc == 1
+
+- name: Ruby | Ensure downloaded tarball is removed.
+  file:
+    path: "{{ ruby_tmp_path }}.tar"
+    state: absent
+
+- name: Ruby | Ensure temporary path is removed.
+  file:
+    path: "{{ ruby_tmp_path }}"
+    state: absent
+
+- name: Ruby | Ensure alternatives are updated.
+  alternatives:
+    name: 'ruby'
+    link: '/usr/bin/ruby'
+    path: '/usr/local/bin/ruby'
