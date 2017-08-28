@@ -1,4 +1,4 @@
-- name: Ruby | Update permissions
+- name: Permissions | Update permissions
   sudo: yes
   file:
     path: '/usr/local/lib/ruby'
