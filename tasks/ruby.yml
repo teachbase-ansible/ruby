@@ -21,3 +21,9 @@
       - make
       - sudo make install
   when: _installed.rc == 1
+
+- name: Ruby | Ensure alternatives are updated.
+  alternatives:
+    name: 'ruby'
+    link: '/usr/bin/ruby'
+    path: '/usr/local/bin/ruby'
