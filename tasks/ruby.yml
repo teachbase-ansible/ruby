@@ -9,8 +9,12 @@
       url: "{{ ruby_url }}"
       dest: "{{ ruby_tmp_path }}.tar"
 
-  - name: Ruby | Extract.
-    command: tar -zxf "{{ ruby_tmp_path }}.tar"
+  - name: Ruby | Ensure sources are extracted.
+    unarchive:
+      src: "{{ ruby_tmp_path }}.tar"
+      dest: '/usr/local/src/'
+      remote_src: True
+      creates: "{{ ruby_tmp_path }}"
 
   - name: Ruby | Make, configure, and install ruby.
     command: "{{ item }}"
