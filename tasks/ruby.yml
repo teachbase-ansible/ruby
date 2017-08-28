@@ -4,15 +4,15 @@
   ignore_errors: True
 
 - block:
-  - name: Ruby | Download
+  - name: Ruby | Ensure tarball is Downloaded.
     get_url:
       url: "{{ ruby_url }}"
       dest: "{{ ruby_tmp_path }}.tar"
 
-  - name: Ruby | Extract
+  - name: Ruby | Extract.
     command: tar -zxf "{{ ruby_tmp_path }}.tar"
 
-  - name: Make, configure, and install ruby
+  - name: Ruby | Make, configure, and install ruby.
     command: "{{ item }}"
     args:
       chdir: "{{ ruby_tmp_path }}"
