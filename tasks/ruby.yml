@@ -27,6 +27,11 @@
     path: "{{ ruby_tmp_path }}.tar"
     state: absent
 
+- name: Ruby | Ensure temporary path is removed.
+  file:
+    path: "{{ ruby_tmp_path }}"
+    state: absent
+
 - name: Ruby | Ensure alternatives are updated.
   alternatives:
     name: 'ruby'
