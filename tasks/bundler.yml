@@ -1,5 +1,5 @@
 - name: Bundler | Install bundler
-  sudo: yes
+  become: yes
   gem:
     name: bundler
     state: present

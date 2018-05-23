@@ -18,6 +18,8 @@
 
   - name: Ruby | Make, configure, and install ruby.
     command: "{{ item }}"
+    become: yes
+    become_method: sudo
     args:
       chdir: "{{ ruby_tmp_path }}"
       creates: '/usr/local/bin/ruby'

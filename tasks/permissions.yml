@@ -1,5 +1,5 @@
 - name: Permissions | Update permissions
-  sudo: yes
+  become: yes
   file:
     path: '/usr/local/lib/ruby'
     owner: "{{ deploy_user }}"
